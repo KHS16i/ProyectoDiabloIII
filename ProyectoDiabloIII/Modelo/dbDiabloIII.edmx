@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbDiabloIII_Modelo.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Atributo">
+          <Key>
+            <PropertyRef Name="idAtributo" />
+          </Key>
+          <Property Name="idAtributo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPersonaje" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Habilidad">
+          <Key>
+            <PropertyRef Name="idHabilidad" />
+          </Key>
+          <Property Name="idHabilidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPersonaje" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="idItem" />
+          </Key>
+          <Property Name="idItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPersonaje" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Personaje">
+          <Key>
+            <PropertyRef Name="idPersonaje" />
+          </Key>
+          <Property Name="idPersonaje" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salud">
+          <Key>
+            <PropertyRef Name="IdSalud" />
+          </Key>
+          <Property Name="IdSalud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Porcentaje" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IdPersonaje" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Atributo_pk_Personaje">
+          <End Role="Personaje" Type="Self.Personaje" Multiplicity="1" />
+          <End Role="Atributo" Type="Self.Atributo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personaje">
+              <PropertyRef Name="idPersonaje" />
+            </Principal>
+            <Dependent Role="Atributo">
+              <PropertyRef Name="idPersonaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Habilidad_pk_Personaje">
+          <End Role="Personaje" Type="Self.Personaje" Multiplicity="1" />
+          <End Role="Habilidad" Type="Self.Habilidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personaje">
+              <PropertyRef Name="idPersonaje" />
+            </Principal>
+            <Dependent Role="Habilidad">
+              <PropertyRef Name="idPersonaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Item_pk_Personaje">
+          <End Role="Personaje" Type="Self.Personaje" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personaje">
+              <PropertyRef Name="idPersonaje" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="idPersonaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pk_Personaje_fk_Salud">
+          <End Role="Personaje" Type="Self.Personaje" Multiplicity="1" />
+          <End Role="Salud" Type="Self.Salud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personaje">
+              <PropertyRef Name="idPersonaje" />
+            </Principal>
+            <Dependent Role="Salud">
+              <PropertyRef Name="IdPersonaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbDiabloIII_ModeloStoreContainer">
+          <EntitySet Name="Atributo" EntityType="Self.Atributo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Habilidad" EntityType="Self.Habilidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personaje" EntityType="Self.Personaje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salud" EntityType="Self.Salud" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Atributo_pk_Personaje" Association="Self.fk_Atributo_pk_Personaje">
+            <End Role="Personaje" EntitySet="Personaje" />
+            <End Role="Atributo" EntitySet="Atributo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Habilidad_pk_Personaje" Association="Self.fk_Habilidad_pk_Personaje">
+            <End Role="Personaje" EntitySet="Personaje" />
+            <End Role="Habilidad" EntitySet="Habilidad" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Item_pk_Personaje" Association="Self.fk_Item_pk_Personaje">
+            <End Role="Personaje" EntitySet="Personaje" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="pk_Personaje_fk_Salud" Association="Self.pk_Personaje_fk_Salud">
+            <End Role="Personaje" EntitySet="Personaje" />
+            <End Role="Salud" EntitySet="Salud" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbDiabloIII_Modelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Atributo">
+          <Key>
+            <PropertyRef Name="idAtributo" />
+          </Key>
+          <Property Name="idAtributo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPersonaje" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Personaje" Relationship="Self.fk_Atributo_pk_Personaje" FromRole="Atributo" ToRole="Personaje" />
+        </EntityType>
+        <EntityType Name="Habilidad">
+          <Key>
+            <PropertyRef Name="idHabilidad" />
+          </Key>
+          <Property Name="idHabilidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPersonaje" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Personaje" Relationship="Self.fk_Habilidad_pk_Personaje" FromRole="Habilidad" ToRole="Personaje" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="idItem" />
+          </Key>
+          <Property Name="idItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPersonaje" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Personaje" Relationship="Self.fk_Item_pk_Personaje" FromRole="Item" ToRole="Personaje" />
+        </EntityType>
+        <EntityType Name="Personaje">
+          <Key>
+            <PropertyRef Name="idPersonaje" />
+          </Key>
+          <Property Name="idPersonaje" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Atributo" Relationship="Self.fk_Atributo_pk_Personaje" FromRole="Personaje" ToRole="Atributo" />
+          <NavigationProperty Name="Habilidad" Relationship="Self.fk_Habilidad_pk_Personaje" FromRole="Personaje" ToRole="Habilidad" />
+          <NavigationProperty Name="Item" Relationship="Self.fk_Item_pk_Personaje" FromRole="Personaje" ToRole="Item" />
+          <NavigationProperty Name="Salud" Relationship="Self.pk_Personaje_fk_Salud" FromRole="Personaje" ToRole="Salud" />
+        </EntityType>
+        <EntityType Name="Salud">
+          <Key>
+            <PropertyRef Name="IdSalud" />
+          </Key>
+          <Property Name="IdSalud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Porcentaje" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IdPersonaje" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Personaje" Relationship="Self.pk_Personaje_fk_Salud" FromRole="Salud" ToRole="Personaje" />
+        </EntityType>
+        <Association Name="fk_Atributo_pk_Personaje">
+          <End Role="Personaje" Type="Self.Personaje" Multiplicity="1" />
+          <End Role="Atributo" Type="Self.Atributo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personaje">
+              <PropertyRef Name="idPersonaje" />
+            </Principal>
+            <Dependent Role="Atributo">
+              <PropertyRef Name="idPersonaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Habilidad_pk_Personaje">
+          <End Role="Personaje" Type="Self.Personaje" Multiplicity="1" />
+          <End Role="Habilidad" Type="Self.Habilidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personaje">
+              <PropertyRef Name="idPersonaje" />
+            </Principal>
+            <Dependent Role="Habilidad">
+              <PropertyRef Name="idPersonaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Item_pk_Personaje">
+          <End Role="Personaje" Type="Self.Personaje" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personaje">
+              <PropertyRef Name="idPersonaje" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="idPersonaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pk_Personaje_fk_Salud">
+          <End Role="Personaje" Type="Self.Personaje" Multiplicity="1" />
+          <End Role="Salud" Type="Self.Salud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personaje">
+              <PropertyRef Name="idPersonaje" />
+            </Principal>
+            <Dependent Role="Salud">
+              <PropertyRef Name="IdPersonaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbDiabloIII" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Atributo" EntityType="Self.Atributo" />
+          <EntitySet Name="Habilidad" EntityType="Self.Habilidad" />
+          <EntitySet Name="Item" EntityType="Self.Item" />
+          <EntitySet Name="Personaje" EntityType="Self.Personaje" />
+          <EntitySet Name="Salud" EntityType="Self.Salud" />
+          <AssociationSet Name="fk_Atributo_pk_Personaje" Association="Self.fk_Atributo_pk_Personaje">
+            <End Role="Personaje" EntitySet="Personaje" />
+            <End Role="Atributo" EntitySet="Atributo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Habilidad_pk_Personaje" Association="Self.fk_Habilidad_pk_Personaje">
+            <End Role="Personaje" EntitySet="Personaje" />
+            <End Role="Habilidad" EntitySet="Habilidad" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Item_pk_Personaje" Association="Self.fk_Item_pk_Personaje">
+            <End Role="Personaje" EntitySet="Personaje" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="pk_Personaje_fk_Salud" Association="Self.pk_Personaje_fk_Salud">
+            <End Role="Personaje" EntitySet="Personaje" />
+            <End Role="Salud" EntitySet="Salud" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbDiabloIII_ModeloStoreContainer" CdmEntityContainer="dbDiabloIII">
+          <EntitySetMapping Name="Atributo">
+            <EntityTypeMapping TypeName="dbDiabloIII_Modelo.Atributo">
+              <MappingFragment StoreEntitySet="Atributo">
+                <ScalarProperty Name="idAtributo" ColumnName="idAtributo" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idPersonaje" ColumnName="idPersonaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Habilidad">
+            <EntityTypeMapping TypeName="dbDiabloIII_Modelo.Habilidad">
+              <MappingFragment StoreEntitySet="Habilidad">
+                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="idPersonaje" ColumnName="idPersonaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item">
+            <EntityTypeMapping TypeName="dbDiabloIII_Modelo.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="idItem" ColumnName="idItem" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idPersonaje" ColumnName="idPersonaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personaje">
+            <EntityTypeMapping TypeName="dbDiabloIII_Modelo.Personaje">
+              <MappingFragment StoreEntitySet="Personaje">
+                <ScalarProperty Name="idPersonaje" ColumnName="idPersonaje" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salud">
+            <EntityTypeMapping TypeName="dbDiabloIII_Modelo.Salud">
+              <MappingFragment StoreEntitySet="Salud">
+                <ScalarProperty Name="IdSalud" ColumnName="IdSalud" />
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+                <ScalarProperty Name="IdPersonaje" ColumnName="IdPersonaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
